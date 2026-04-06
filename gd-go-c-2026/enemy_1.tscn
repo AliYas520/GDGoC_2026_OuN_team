@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cejdy0pmgnbe4"]
+
+[ext_resource type="Script" uid="uid://bmpgvsehr8gli" path="res://enemy_1.gd" id="1_pjquw"]
+[ext_resource type="Texture2D" uid="uid://uuantljomc4" path="res://icon.svg" id="2_663o1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ovk8a"]
+size = Vector2(127, 131)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gqj32"]
+radius = 501.06387
+
+[node name="Enemy_1" type="CharacterBody2D" unique_id=825067133]
+script = ExtResource("1_pjquw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=680720164]
+texture = ExtResource("2_663o1")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="." unique_id=1873594818]
+position = Vector2(-1.5, -0.5)
+shape = SubResource("RectangleShape2D_ovk8a")
+
+[node name="PlayerDetectionArea" type="Area2D" parent="." unique_id=1286562006]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea" unique_id=1386365075]
+shape = SubResource("CircleShape2D_gqj32")
+debug_color = Color(0.97891766, 0, 0.39612246, 0.41960785)
