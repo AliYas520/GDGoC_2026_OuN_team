@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://dafl8e4xay6f6"]
 
 [ext_resource type="PackedScene" uid="uid://cejdy0pmgnbe4" path="res://scene/enemy_1.tscn" id="1_itxqv"]
+[ext_resource type="PackedScene" uid="uid://cfvog4lb714qk" path="res://scene/player.tscn" id="2_v0l8b"]
 
 [node name="Node2D" type="Node2D" unique_id=1418710930]
 
 [node name="Enemy_1" parent="." unique_id=825067133 instance=ExtResource("1_itxqv")]
-position = Vector2(402, 287)
+position = Vector2(428, 509.00003)
+scale = Vector2(0.69176936, 0.69176936)
+
+[node name="player" parent="." unique_id=1790857499 instance=ExtResource("2_v0l8b")]
+position = Vector2(786, 327)

@@ -1,25 +1,34 @@
 [gd_scene format=3 uid="uid://cejdy0pmgnbe4"]
 
-[ext_resource type="Texture2D" uid="uid://uuantljomc4" path="res://icon.svg" id="2_663o1"]
-[ext_resource type="Script" uid="uid://mcb4c7i5oiqh" path="res://scene/FinieStateMachine.gd" id="2_jhall"]
+[ext_resource type="Script" uid="uid://bre0dpopavcpx" path="res://script/enemy_1.gd" id="1_ufwdq"]
+[ext_resource type="Script" uid="uid://mcb4c7i5oiqh" path="res://script/FiniteStateMachine.gd" id="2_jhall"]
 [ext_resource type="Script" uid="uid://bmpgvsehr8gli" path="res://script/state.gd" id="3_a7q5a"]
+[ext_resource type="Script" uid="uid://mljtac408olg" path="res://script/idle.gd" id="3_dodob"]
+[ext_resource type="Script" uid="uid://8pciknv8scgp" path="res://script/follow.gd" id="4_dodob"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dodob"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ovk8a"]
-size = Vector2(127, 131)
+size = Vector2(125, 126)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gqj32"]
-radius = 501.06387
+radius = 465.388
 
 [node name="Enemy_1" type="CharacterBody2D" unique_id=825067133]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_ufwdq")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=680720164]
-texture = ExtResource("2_663o1")
+scale = Vector2(125.04151, 125.04151)
+texture = SubResource("PlaceholderTexture2D_dodob")
 
 [node name="Hurtbox" type="CollisionShape2D" parent="." unique_id=1873594818]
-position = Vector2(-1.5, -0.5)
+position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_ovk8a")
 
 [node name="PlayerDetectionArea" type="Area2D" parent="." unique_id=1286562006]
+collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea" unique_id=1386365075]
 shape = SubResource("CircleShape2D_gqj32")
@@ -38,10 +47,10 @@ vertical_alignment = 1
 script = ExtResource("2_jhall")
 
 [node name="idle" type="Node2D" parent="FiniteStateMachine" unique_id=1936056371]
-script = ExtResource("3_a7q5a")
+script = ExtResource("3_dodob")
 
 [node name="follow" type="Node2D" parent="FiniteStateMachine" unique_id=695876373]
-script = ExtResource("3_a7q5a")
+script = ExtResource("4_dodob")
 
 [node name="attack_1" type="Node2D" parent="FiniteStateMachine" unique_id=1730426408]
 script = ExtResource("3_a7q5a")
@@ -51,3 +60,12 @@ script = ExtResource("3_a7q5a")
 
 [node name="death" type="Node2D" parent="FiniteStateMachine" unique_id=488667948]
 script = ExtResource("3_a7q5a")
+
+[node name="healthbar" type="ProgressBar" parent="." unique_id=433223260]
+offset_left = -87.0
+offset_top = 81.0
+offset_right = 87.0
+offset_bottom = 108.0
+value = 100.0
+
+[connection signal="body_entered" from="PlayerDetectionArea" to="FiniteStateMachine/idle" method="_on_player_detection_area_body_entered"]
