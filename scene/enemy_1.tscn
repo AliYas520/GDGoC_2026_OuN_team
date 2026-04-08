@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://cejdy0pmgnbe4"]
+
+[ext_resource type="Texture2D" uid="uid://uuantljomc4" path="res://icon.svg" id="2_663o1"]
+[ext_resource type="Script" uid="uid://mcb4c7i5oiqh" path="res://scene/FinieStateMachine.gd" id="2_jhall"]
+[ext_resource type="Script" uid="uid://bmpgvsehr8gli" path="res://script/state.gd" id="3_a7q5a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ovk8a"]
+size = Vector2(127, 131)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gqj32"]
+radius = 501.06387
+
+[node name="Enemy_1" type="CharacterBody2D" unique_id=825067133]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=680720164]
+texture = ExtResource("2_663o1")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="." unique_id=1873594818]
+position = Vector2(-1.5, -0.5)
+shape = SubResource("RectangleShape2D_ovk8a")
+
+[node name="PlayerDetectionArea" type="Area2D" parent="." unique_id=1286562006]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea" unique_id=1386365075]
+shape = SubResource("CircleShape2D_gqj32")
+debug_color = Color(0.97891766, 0, 0.39612246, 0.41960785)
+
+[node name="debug" type="Label" parent="." unique_id=996331214]
+offset_left = -24.0
+offset_top = -102.0
+offset_right = 25.0
+offset_bottom = -79.0
+text = "debug"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FiniteStateMachine" type="Node2D" parent="." unique_id=815033893]
+script = ExtResource("2_jhall")
+
+[node name="idle" type="Node2D" parent="FiniteStateMachine" unique_id=1936056371]
+script = ExtResource("3_a7q5a")
+
+[node name="follow" type="Node2D" parent="FiniteStateMachine" unique_id=695876373]
+script = ExtResource("3_a7q5a")
+
+[node name="attack_1" type="Node2D" parent="FiniteStateMachine" unique_id=1730426408]
+script = ExtResource("3_a7q5a")
+
+[node name="attack_2" type="Node2D" parent="FiniteStateMachine" unique_id=275113452]
+script = ExtResource("3_a7q5a")
+
+[node name="death" type="Node2D" parent="FiniteStateMachine" unique_id=488667948]
+script = ExtResource("3_a7q5a")
