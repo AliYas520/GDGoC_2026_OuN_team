@@ -1,4 +1,5 @@
-extends Node2D
+extends Node
+class_name FiniteStateMachine
 
 var current_state: State
 var previous_state: State

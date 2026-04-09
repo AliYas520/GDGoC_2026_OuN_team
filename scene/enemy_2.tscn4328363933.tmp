@@ -1,10 +1,21 @@
 [gd_scene format=3 uid="uid://18625l75kb64"]
 
 [ext_resource type="Texture2D" uid="uid://uuantljomc4" path="res://icon.svg" id="1_867ty"]
-[ext_resource type="Script" uid="uid://j6nje3gb3jp7" path="res://script/enemy_2/enemy_2.gd" id="1_vfv5t"]
 [ext_resource type="Script" uid="uid://mcb4c7i5oiqh" path="res://script/FiniteStateMachine.gd" id="2_usyhm"]
-[ext_resource type="Script" uid="uid://x87ip6htdpek" path="res://script/enemy_2/idle.gd" id="4_4fgr3"]
 [ext_resource type="Script" uid="uid://bmpgvsehr8gli" path="res://script/state.gd" id="6_lbdo6"]
+
+[sub_resource type="GDScript" id="GDScript_h4cll"]
+script/source = "extends CharacterBody2D
+
+@onready var raycast = $RayCast2D
+@onready var player = get_parent().find_child(\"player\")
+
+var direction = Vector2.RIGHT
+
+func _process(_delta):
+	direction = (player.position - global_position).normalized()
+	raycast.target_position = direction * 250
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vfv5t"]
 size = Vector2(126, 126)
@@ -12,8 +23,16 @@ size = Vector2(126, 126)
 [sub_resource type="CircleShape2D" id="CircleShape2D_mvvu1"]
 radius = 333.35266
 
-[node name="enemy_2" type="CharacterBody2D" unique_id=1004828533]
-script = ExtResource("1_vfv5t")
+[sub_resource type="GDScript" id="GDScript_8jmkd"]
+script/source = "extends State
+class_name IdleState
+
+func transition():
+	pass
+"
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1004828533]
+script = SubResource("GDScript_h4cll")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1570669138]
 scale = Vector2(0.4, 0.4)
@@ -31,7 +50,7 @@ shape = SubResource("RectangleShape2D_vfv5t")
 shape = SubResource("CircleShape2D_mvvu1")
 debug_color = Color(0.825695, 0.3979168, 0.018365925, 0.41960785)
 
-[node name="debug" type="Label" parent="." unique_id=971175541]
+[node name="Debug" type="Label" parent="." unique_id=971175541]
 offset_right = 40.0
 offset_bottom = 23.0
 
@@ -39,7 +58,7 @@ offset_bottom = 23.0
 script = ExtResource("2_usyhm")
 
 [node name="idle" type="Node" parent="FiniteStateMachine" unique_id=1117123203]
-script = ExtResource("4_4fgr3")
+script = SubResource("GDScript_8jmkd")
 
 [node name="attack" type="Node" parent="FiniteStateMachine" unique_id=1973140139]
 script = ExtResource("6_lbdo6")

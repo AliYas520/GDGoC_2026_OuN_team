@@ -1,27 +1,99 @@
 [gd_scene format=3 uid="uid://cejdy0pmgnbe4"]
 
-[ext_resource type="Script" uid="uid://bre0dpopavcpx" path="res://script/enemy_1.gd" id="1_ufwdq"]
 [ext_resource type="Script" uid="uid://mcb4c7i5oiqh" path="res://script/FiniteStateMachine.gd" id="2_jhall"]
 [ext_resource type="Script" uid="uid://bmpgvsehr8gli" path="res://script/state.gd" id="3_a7q5a"]
-[ext_resource type="Script" uid="uid://mljtac408olg" path="res://script/idle.gd" id="3_dodob"]
-[ext_resource type="Script" uid="uid://8pciknv8scgp" path="res://script/follow.gd" id="4_dodob"]
-[ext_resource type="Script" uid="uid://dj5msrxqm5s8l" path="res://script/attack_1.gd" id="5_ufwdq"]
+
+[sub_resource type="GDScript" id="GDScript_uivv5"]
+script/source = "extends CharacterBody2D
+
+@onready var player = get_parent().find_child(\"player\")
+@onready var sprite = $Sprite2D
+
+var attack_1_range = 70
+@export var movement_speed = 140
+
+var direction : Vector2
+
+func _ready():
+	set_physics_process(false)
+
+func _process(_delta):
+	direction = player.position - position
+	
+	if direction.x < 0:
+		sprite.flip_h = true
+	else:
+		sprite.flip_h = false
+
+func _physics_process(delta: float) -> void:
+	velocity = direction.normalized() * movement_speed
+	move_and_collide(velocity * delta)
+"
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dodob"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ovk8a"]
-size = Vector2(125, 126)
+size = Vector2(49, 50)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gqj32"]
 radius = 465.388
 
+[sub_resource type="GDScript" id="GDScript_jhall"]
+script/source = "extends State
+
+@onready var collision = $\"../../PlayerDetectionArea/CollisionShape2D\"
+@onready var healthbar = $\"../../healthbar\"
+
+var player_entered: bool = false:
+	set(value):
+		player_entered = value
+		collision.set_deferred(\"disabled\", value)
+		healthbar.set_deferred(\"visible\", value)
+
+func transition():
+	if player_entered:
+		get_parent().change_state(\"follow\")
+
+func _on_player_detection_area_body_entered(_body):
+	player_entered = true
+"
+
+[sub_resource type="GDScript" id="GDScript_a7q5a"]
+script/source = "extends State
+
+func enter():
+	super.enter()
+	owner.set_physics_process(true)
+
+func exit():
+	super.exit()
+	owner.set_physics_process(false)
+
+func transition():
+	var distance = owner.direction.length()
+	
+	if distance < 70: #attack distance
+		get_parent().change_state(\"attack_1\")
+"
+
+[sub_resource type="GDScript" id="GDScript_dodob"]
+script/source = "extends State
+
+func enter():
+	super.enter()
+
+func transition():
+	if owner.direction.length() > 70:
+		get_parent().change_state(\"follow\")
+"
+
 [node name="Enemy_1" type="CharacterBody2D" unique_id=825067133]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("1_ufwdq")
+script = SubResource("GDScript_uivv5")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=680720164]
-scale = Vector2(125.04151, 125.04151)
+scale = Vector2(50, 50)
 texture = SubResource("PlaceholderTexture2D_dodob")
 
 [node name="Hurtbox" type="CollisionShape2D" parent="." unique_id=1873594818]
@@ -44,22 +116,22 @@ text = "debug"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FiniteStateMachine" type="Node2D" parent="." unique_id=815033893]
+[node name="FiniteStateMachine" type="Node" parent="." unique_id=1368026524]
 script = ExtResource("2_jhall")
 
-[node name="idle" type="Node2D" parent="FiniteStateMachine" unique_id=1936056371]
-script = ExtResource("3_dodob")
+[node name="idle" type="Node" parent="FiniteStateMachine" unique_id=1702762112]
+script = SubResource("GDScript_jhall")
 
-[node name="follow" type="Node2D" parent="FiniteStateMachine" unique_id=695876373]
-script = ExtResource("4_dodob")
+[node name="follow" type="Node" parent="FiniteStateMachine" unique_id=1928051133]
+script = SubResource("GDScript_a7q5a")
 
-[node name="attack_1" type="Node2D" parent="FiniteStateMachine" unique_id=1730426408]
-script = ExtResource("5_ufwdq")
+[node name="attack_1" type="Node" parent="FiniteStateMachine" unique_id=983966206]
+script = SubResource("GDScript_dodob")
 
-[node name="attack_2" type="Node2D" parent="FiniteStateMachine" unique_id=275113452]
+[node name="attack_2" type="Node" parent="FiniteStateMachine" unique_id=1464347918]
 script = ExtResource("3_a7q5a")
 
-[node name="death" type="Node2D" parent="FiniteStateMachine" unique_id=488667948]
+[node name="death" type="Node" parent="FiniteStateMachine" unique_id=1620813111]
 script = ExtResource("3_a7q5a")
 
 [node name="healthbar" type="ProgressBar" parent="." unique_id=433223260]

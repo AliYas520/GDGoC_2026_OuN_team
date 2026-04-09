@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://uuantljomc4" path="res://icon.svg" id="1_867ty"]
 [ext_resource type="Script" uid="uid://j6nje3gb3jp7" path="res://script/enemy_2/enemy_2.gd" id="1_vfv5t"]
 [ext_resource type="Script" uid="uid://mcb4c7i5oiqh" path="res://script/FiniteStateMachine.gd" id="2_usyhm"]
-[ext_resource type="Script" uid="uid://x87ip6htdpek" path="res://script/enemy_2/idle.gd" id="4_4fgr3"]
+[ext_resource type="Script" uid="uid://x87ip6htdpek" path="res://scene/idle.gd" id="4_4fgr3"]
 [ext_resource type="Script" uid="uid://bmpgvsehr8gli" path="res://script/state.gd" id="6_lbdo6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vfv5t"]

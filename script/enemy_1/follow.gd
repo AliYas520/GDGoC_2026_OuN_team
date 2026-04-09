@@ -1,7 +1,5 @@
 extends State
 
-var attack_1_range = owner.attack_1_range
-
 func enter():
 	super.enter()
 	owner.set_physics_process(true)
@@ -13,5 +11,5 @@ func exit():
 func transition():
 	var distance = owner.direction.length()
 	
-	if distance < attack_1_range: #attack distance
+	if distance < 70: #attack distance
 		get_parent().change_state("attack_1")
