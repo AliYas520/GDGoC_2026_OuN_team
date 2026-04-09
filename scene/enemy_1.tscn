@@ -37,7 +37,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack",
-"speed": 4.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -116,7 +116,6 @@ script = ExtResource("1_a7q5a")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_jhall")
 animation = &"attack"
-autoplay = "idle"
 frame = 4
 frame_progress = 1.0
 

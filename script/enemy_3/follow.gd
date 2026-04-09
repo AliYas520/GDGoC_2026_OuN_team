@@ -1,7 +1,5 @@
 extends State
 
-@onready var _sprite = get_owner().find_child("AnimatedSprite2D")
-
 func enter():
 	super.enter()
 	owner.set_physics_process(true)
@@ -14,5 +12,4 @@ func transition():
 	var distance = owner.direction.length()
 	
 	if distance < 50: #attack distance
-		get_parent().change_state("attack_1")
-		_sprite.play("attack")
+		get_parent().change_state("attack")

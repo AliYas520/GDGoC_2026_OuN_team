@@ -16,5 +16,5 @@ func _on_timer_timeout() -> void:
 
 func shoot():
 	var bullet = bullet_node.instantiate()
-	bullet.position = global_position
-	bullet.direction = (player.global_position -  global_position).normalized()
+	#bullet.position = global_position
+	#bullet.direction = (player.global_position -  global_position).normalized()

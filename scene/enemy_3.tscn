@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://bemr3i606wjaq"]
+
+[ext_resource type="Script" uid="uid://mcb4c7i5oiqh" path="res://script/FiniteStateMachine.gd" id="1_kr41a"]
+[ext_resource type="Script" uid="uid://ki4h4ssmp0ge" path="res://script/enemy_3/enemy_3.gd" id="1_w54lo"]
+[ext_resource type="Script" uid="uid://bmpgvsehr8gli" path="res://script/state.gd" id="2_w54lo"]
+[ext_resource type="Script" uid="uid://cysx8u7unuv0j" path="res://script/enemy_3/idle.gd" id="3_cqmbq"]
+[ext_resource type="Script" uid="uid://o86k6eqhfje5" path="res://script/enemy_3/follow.gd" id="4_lp7oq"]
+[ext_resource type="Script" uid="uid://44cg4l856e14" path="res://script/enemy_3/attack.gd" id="5_6ey6x"]
+[ext_resource type="Script" uid="uid://b6tcdwp882ued" path="res://script/enemy_3/dash.gd" id="6_ouuy1"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cqmbq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lp7oq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ey6x"]
+radius = 138.0
+height = 276.0
+
+[node name="enemy_3" type="CharacterBody2D" unique_id=1997313599]
+script = ExtResource("1_w54lo")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=431921579]
+texture = SubResource("PlaceholderTexture2D_cqmbq")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="." unique_id=86954369]
+shape = SubResource("RectangleShape2D_lp7oq")
+
+[node name="PlayerDetectionArea" type="Area2D" parent="." unique_id=1750253044]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea" unique_id=1311958756]
+shape = SubResource("CapsuleShape2D_6ey6x")
+
+[node name="debug" type="Label" parent="." unique_id=1500878216]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="FiniteStateMachine" type="Node" parent="." unique_id=536944839]
+script = ExtResource("1_kr41a")
+
+[node name="idle" type="Node" parent="FiniteStateMachine" unique_id=1170252160]
+script = ExtResource("3_cqmbq")
+
+[node name="follow" type="Node" parent="FiniteStateMachine" unique_id=1638148208]
+script = ExtResource("4_lp7oq")
+
+[node name="attack" type="Node" parent="FiniteStateMachine" unique_id=1771563360]
+script = ExtResource("5_6ey6x")
+
+[node name="dash" type="Node" parent="FiniteStateMachine" unique_id=1717979376]
+script = ExtResource("6_ouuy1")
+
+[node name="death" type="Node" parent="FiniteStateMachine" unique_id=1613468856]
+script = ExtResource("2_w54lo")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=273255501]
+offset_right = 4.0
+offset_bottom = 27.0
+value = 100.0
+show_percentage = false
+
+[connection signal="body_entered" from="PlayerDetectionArea" to="FiniteStateMachine/idle" method="_on_player_detection_area_body_entered"]

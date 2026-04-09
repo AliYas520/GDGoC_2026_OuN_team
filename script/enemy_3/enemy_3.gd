@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
 @onready var player = get_parent().find_child("player")
-@onready var sprite = $AnimatedSprite2D
+@onready var sprite = $Sprite2D
 
 var attack_1_range = 70
-@export var movement_speed = 80
+@export var movement_speed = 120
 
 var direction : Vector2
 
@@ -13,7 +13,7 @@ func _ready():
 
 func _process(_delta):
 	direction = player.position - position
-	sprite.play("idle")
+	#sprite.play("idle")
 	
 	if direction.x < 0:
 		sprite.flip_h = true

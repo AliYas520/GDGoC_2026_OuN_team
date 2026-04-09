@@ -2,15 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://cejdy0pmgnbe4" path="res://scene/enemy_1.tscn" id="1_itxqv"]
 [ext_resource type="PackedScene" uid="uid://cfvog4lb714qk" path="res://scene/player.tscn" id="2_v0l8b"]
-[ext_resource type="PackedScene" uid="uid://bemr3i606wjaq" path="res://scene/enemy_3.tscn" id="3_wp4xf"]
+[ext_resource type="PackedScene" uid="uid://18625l75kb64" path="res://scene/enemy_2.tscn" id="3_wp4xf"]
 
 [node name="Node2D" type="Node2D" unique_id=1418710930]
 
 [node name="Enemy_1" parent="." unique_id=825067133 instance=ExtResource("1_itxqv")]
-position = Vector2(429, 509.00003)
+position = Vector2(428, 509.00003)
+scale = Vector2(0.69176936, 0.69176936)
 
 [node name="player" parent="." unique_id=1790857499 instance=ExtResource("2_v0l8b")]
-position = Vector2(803, 304)
+position = Vector2(786, 327)
 
-[node name="enemy_3" parent="." unique_id=1997313599 instance=ExtResource("3_wp4xf")]
-position = Vector2(1313, 757)
+[node name="CharacterBody2D" parent="." unique_id=1004828533 instance=ExtResource("3_wp4xf")]
+position = Vector2(1371, 415)
