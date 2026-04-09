@@ -1,39 +1,59 @@
 [gd_scene format=3 uid="uid://cejdy0pmgnbe4"]
 
+[ext_resource type="Script" uid="uid://bre0dpopavcpx" path="res://script/enemy_1/enemy_1.gd" id="1_a7q5a"]
 [ext_resource type="Script" uid="uid://mcb4c7i5oiqh" path="res://script/FiniteStateMachine.gd" id="2_jhall"]
 [ext_resource type="Script" uid="uid://bmpgvsehr8gli" path="res://script/state.gd" id="3_a7q5a"]
+[ext_resource type="Texture2D" uid="uid://c51gk70hkv0jr" path="res://assets/Enemy/Enemy 1.png" id="3_jhall"]
 
-[sub_resource type="GDScript" id="GDScript_uivv5"]
-script/source = "extends CharacterBody2D
+[sub_resource type="AtlasTexture" id="AtlasTexture_6do27"]
+atlas = ExtResource("3_jhall")
+region = Rect2(0, 0, 32, 64)
 
-@onready var player = get_parent().find_child(\"player\")
-@onready var sprite = $Sprite2D
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvmyp"]
+atlas = ExtResource("3_jhall")
+region = Rect2(38, 0, 38, 64)
 
-var attack_1_range = 70
-@export var movement_speed = 140
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nxwx"]
+atlas = ExtResource("3_jhall")
+region = Rect2(96, 0, 96, 64)
 
-var direction : Vector2
+[sub_resource type="SpriteFrames" id="SpriteFrames_jhall"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6do27")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvmyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2nxwx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvmyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6do27")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6do27")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvmyp")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}]
 
-func _ready():
-	set_physics_process(false)
-
-func _process(_delta):
-	direction = player.position - position
-	
-	if direction.x < 0:
-		sprite.flip_h = true
-	else:
-		sprite.flip_h = false
-
-func _physics_process(delta: float) -> void:
-	velocity = direction.normalized() * movement_speed
-	move_and_collide(velocity * delta)
-"
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dodob"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ovk8a"]
-size = Vector2(49, 50)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jhall"]
+radius = 20.5
+height = 65.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gqj32"]
 radius = 465.388
@@ -90,20 +110,25 @@ func transition():
 [node name="Enemy_1" type="CharacterBody2D" unique_id=825067133]
 collision_layer = 2
 collision_mask = 0
-script = SubResource("GDScript_uivv5")
+script = ExtResource("1_a7q5a")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=680720164]
-scale = Vector2(50, 50)
-texture = SubResource("PlaceholderTexture2D_dodob")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=801910675]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_jhall")
+animation = &"attack"
+autoplay = "idle"
+frame = 4
+frame_progress = 1.0
 
 [node name="Hurtbox" type="CollisionShape2D" parent="." unique_id=1873594818]
-position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_ovk8a")
+position = Vector2(-0.5, -3.5)
+shape = SubResource("CapsuleShape2D_jhall")
 
 [node name="PlayerDetectionArea" type="Area2D" parent="." unique_id=1286562006]
 collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea" unique_id=1386365075]
+position = Vector2(-15, 0)
 shape = SubResource("CircleShape2D_gqj32")
 debug_color = Color(0.97891766, 0, 0.39612246, 0.41960785)
 
@@ -135,10 +160,10 @@ script = ExtResource("3_a7q5a")
 script = ExtResource("3_a7q5a")
 
 [node name="healthbar" type="ProgressBar" parent="." unique_id=433223260]
-offset_left = -87.0
-offset_top = 81.0
-offset_right = 87.0
-offset_bottom = 108.0
+offset_left = -78.0
+offset_top = -75.0
+offset_right = 78.0
+offset_bottom = -48.0
 value = 100.0
 
 [connection signal="body_entered" from="PlayerDetectionArea" to="FiniteStateMachine/idle" method="_on_player_detection_area_body_entered"]

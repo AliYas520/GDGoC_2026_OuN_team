@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
 @onready var player = get_parent().find_child("player")
-@onready var sprite = $Sprite2D
+@onready var sprite = $AnimatedSprite2D
 
 var attack_1_range = 70
-@export var movement_speed = 140
+@export var movement_speed = 80
 
 var direction : Vector2
 

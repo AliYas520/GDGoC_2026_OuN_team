@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://x87ip6htdpek" path="res://script/enemy_2/idle.gd" id="4_4fgr3"]
 [ext_resource type="Script" uid="uid://bebuylqf26ktk" path="res://script/enemy_2/attack.gd" id="5_cc80s"]
 [ext_resource type="Script" uid="uid://bmpgvsehr8gli" path="res://script/state.gd" id="6_lbdo6"]
-[ext_resource type="Script" uid="uid://dii0q2rh0beqi" path="res://script/enemy_2/chase.gd" id="6_usyhm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vfv5t"]
 size = Vector2(126, 126)
@@ -46,12 +45,8 @@ script = ExtResource("4_4fgr3")
 [node name="attack" type="Node" parent="FiniteStateMachine" unique_id=1973140139]
 script = ExtResource("5_cc80s")
 
-[node name="Timer" type="Timer" parent="FiniteStateMachine/attack" unique_id=1125612000]
-
 [node name="chase" type="Node" parent="FiniteStateMachine" unique_id=1987134421]
-script = ExtResource("6_usyhm")
+script = ExtResource("6_lbdo6")
 
 [node name="dead" type="Node" parent="FiniteStateMachine" unique_id=998704157]
 script = ExtResource("6_lbdo6")
-
-[connection signal="timeout" from="FiniteStateMachine/attack/Timer" to="FiniteStateMachine/attack" method="_on_timer_timeout"]

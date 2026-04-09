@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://jbtrwwf5ehsv"]
+
+[ext_resource type="Texture2D" uid="uid://c51gk70hkv0jr" path="res://assets/Enemy/Enemy 1.png" id="2_2hac7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6d4v"]
+size = Vector2(34, 51)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qp131"]
+radius = 44.011364
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6do27"]
+atlas = ExtResource("2_2hac7")
+region = Rect2(0, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvmyp"]
+atlas = ExtResource("2_2hac7")
+region = Rect2(38, 0, 38, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nxwx"]
+atlas = ExtResource("2_2hac7")
+region = Rect2(96, 0, 96, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_52xpa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6do27")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvmyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2nxwx")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6do27")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvmyp")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}]
+
+[node name="Node2D" type="Node2D" unique_id=170483903]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1981494514]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1281283717]
+position = Vector2(-1, -3.5)
+shape = SubResource("RectangleShape2D_e6d4v")
+
+[node name="Area2D" type="Area2D" parent="StaticBody2D" unique_id=1147559570]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/Area2D" unique_id=573700620]
+shape = SubResource("CircleShape2D_qp131")
+
+[node name="Timer" type="Timer" parent="StaticBody2D" unique_id=821607892]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StaticBody2D" unique_id=526147325]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_52xpa")
+animation = &"attack"

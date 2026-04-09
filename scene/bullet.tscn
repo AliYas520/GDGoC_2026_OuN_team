@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bvyaqsadla2kl"]
+
+[ext_resource type="Script" uid="uid://defo5pbkq2wbe" path="res://script/bullet.gd" id="1_qwydi"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_dcxha"]
+
+[node name="bullet" type="Area2D" unique_id=655552225]
+script = ExtResource("1_qwydi")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=734086245]
+scale = Vector2(6, 6)
+texture = SubResource("PlaceholderTexture2D_dcxha")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=1758962185]
+scale = Vector2(6, 6)
+rect = Rect2(-1.1666667, -1.1666667, 2.3333335, 2.3333335)
+enable_node_path = NodePath("../Sprite2D")
+
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="screen_exited"]

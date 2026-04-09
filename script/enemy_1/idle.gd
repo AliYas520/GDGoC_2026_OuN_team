@@ -9,6 +9,8 @@ var player_entered: bool = false:
 		collision.set_deferred("disabled", value)
 		healthbar.set_deferred("visible", value)
 
+
+
 func transition():
 	if player_entered:
 		get_parent().change_state("follow")
