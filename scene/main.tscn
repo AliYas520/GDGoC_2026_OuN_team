@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cejdy0pmgnbe4" path="res://scene/enemy_1.tscn" id="1_itxqv"]
 [ext_resource type="PackedScene" uid="uid://cfvog4lb714qk" path="res://scene/player.tscn" id="2_v0l8b"]
 [ext_resource type="PackedScene" uid="uid://bemr3i606wjaq" path="res://scene/enemy_3.tscn" id="3_wp4xf"]
+[ext_resource type="PackedScene" uid="uid://dcdv6aqslqfnk" path="res://scene/boss_1.tscn" id="4_brvut"]
 
 [node name="Node2D" type="Node2D" unique_id=1418710930]
 
@@ -14,3 +15,6 @@ position = Vector2(803, 304)
 
 [node name="enemy_3" parent="." unique_id=1997313599 instance=ExtResource("3_wp4xf")]
 position = Vector2(1313, 757)
+
+[node name="Boss_1" parent="." unique_id=1293380063 instance=ExtResource("4_brvut")]
+position = Vector2(1170, 389)

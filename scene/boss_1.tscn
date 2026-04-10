@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://dcdv6aqslqfnk"]
+
+[ext_resource type="Script" uid="uid://mcb4c7i5oiqh" path="res://script/FiniteStateMachine.gd" id="1_4lne4"]
+[ext_resource type="Script" uid="uid://c0sbvwyumfe6" path="res://script/boss_1.gd" id="1_yu5gy"]
+[ext_resource type="Script" uid="uid://bmpgvsehr8gli" path="res://script/state.gd" id="2_yu5gy"]
+[ext_resource type="Script" uid="uid://fvl4jytwaf6s" path="res://script/Boss_1/idle.gd" id="3_ilt14"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rrda2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7cpyu"]
+radius = 49.0
+height = 304.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rrda2"]
+radius = 90.0
+height = 510.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4lne4"]
+radius = 154.0
+height = 308.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yu5gy"]
+radius = 80.0
+height = 160.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ilt14"]
+radius = 737.0821
+
+[node name="Boss_1" type="CharacterBody2D" unique_id=1293380063]
+script = ExtResource("1_yu5gy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=497640472]
+sprite_frames = SubResource("SpriteFrames_rrda2")
+
+[node name="attack_1" type="Area2D" parent="AnimatedSprite2D" unique_id=1433042741]
+
+[node name="attack1_hitbox" type="CollisionShape2D" parent="AnimatedSprite2D/attack_1" unique_id=56284067]
+position = Vector2(151, 7)
+shape = SubResource("CapsuleShape2D_7cpyu")
+
+[node name="attack_2" type="Area2D" parent="AnimatedSprite2D" unique_id=1559753118]
+
+[node name="attack2_hitbox" type="CollisionShape2D" parent="AnimatedSprite2D/attack_2" unique_id=737485032]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_rrda2")
+
+[node name="dash_hitbox" type="Area2D" parent="AnimatedSprite2D" unique_id=436502464]
+
+[node name="dash_hitbox" type="CollisionShape2D" parent="AnimatedSprite2D/dash_hitbox" unique_id=1570852194]
+shape = SubResource("CapsuleShape2D_4lne4")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="." unique_id=220111810]
+shape = SubResource("CapsuleShape2D_yu5gy")
+
+[node name="debug" type="Label" parent="." unique_id=793824671]
+offset_left = -24.0
+offset_top = -125.0
+offset_right = 25.0
+offset_bottom = -102.0
+text = "debug"
+
+[node name="PlayerDetectionArea" type="Area2D" parent="." unique_id=1143511522]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea" unique_id=733248586]
+shape = SubResource("CircleShape2D_ilt14")
+debug_color = Color(0.8898312, 0.32673344, 0, 0.41960785)
+
+[node name="FiniteStateMachine" type="Node" parent="." unique_id=2109365564]
+script = ExtResource("1_4lne4")
+
+[node name="idle" type="Node" parent="FiniteStateMachine" unique_id=552523735]
+script = ExtResource("3_ilt14")
+
+[node name="follow" type="Node" parent="FiniteStateMachine" unique_id=1803032831]
+script = ExtResource("2_yu5gy")
+
+[node name="attack_1" type="Node" parent="FiniteStateMachine" unique_id=583243682]
+script = ExtResource("2_yu5gy")
+
+[node name="attack_2" type="Node" parent="FiniteStateMachine" unique_id=784988664]
+script = ExtResource("2_yu5gy")
+
+[node name="dash" type="Node" parent="FiniteStateMachine" unique_id=2118246685]
+script = ExtResource("2_yu5gy")
+
+[node name="death" type="Node" parent="FiniteStateMachine" unique_id=1009031300]
+script = ExtResource("2_yu5gy")
+
+[node name="Ui" type="CanvasLayer" parent="." unique_id=1022232762]
+
+[node name="ProgressBar" type="ProgressBar" parent="Ui" unique_id=1107095976]
+offset_left = -200.0
+offset_top = 160.0
+offset_right = 198.0
+offset_bottom = 187.0
+value = 100.0
+show_percentage = false
