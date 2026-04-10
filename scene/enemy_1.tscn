@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://mcb4c7i5oiqh" path="res://script/FiniteStateMachine.gd" id="2_jhall"]
 [ext_resource type="Script" uid="uid://bmpgvsehr8gli" path="res://script/state.gd" id="3_a7q5a"]
 [ext_resource type="Texture2D" uid="uid://c51gk70hkv0jr" path="res://assets/Enemy/Enemy 1.png" id="3_jhall"]
+[ext_resource type="Script" uid="uid://c512m5dr30c2g" path="res://script/enemy_1/attack_2.gd" id="4_dodob"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6do27"]
 atlas = ExtResource("3_jhall")
@@ -56,7 +57,7 @@ radius = 20.5
 height = 65.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gqj32"]
-radius = 465.388
+radius = 216.33308
 
 [sub_resource type="GDScript" id="GDScript_jhall"]
 script/source = "extends State
@@ -153,7 +154,7 @@ script = SubResource("GDScript_a7q5a")
 script = SubResource("GDScript_dodob")
 
 [node name="attack_2" type="Node" parent="FiniteStateMachine" unique_id=1464347918]
-script = ExtResource("3_a7q5a")
+script = ExtResource("4_dodob")
 
 [node name="death" type="Node" parent="FiniteStateMachine" unique_id=1620813111]
 script = ExtResource("3_a7q5a")

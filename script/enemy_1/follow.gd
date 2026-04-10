@@ -14,5 +14,10 @@ func transition():
 	var distance = owner.direction.length()
 	
 	if distance < 50: #attack distance
-		get_parent().change_state("attack_1")
-		_sprite.play("attack")
+		var chance = randi() % 2
+		match chance:
+			0:
+				get_parent().change_state("attack_1")
+				_sprite.play("attack")
+			1:
+				get_parent().change_state("attack_2")
